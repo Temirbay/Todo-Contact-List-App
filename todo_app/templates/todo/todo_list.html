@@ -1,0 +1,65 @@
+{% extends "../base.html" %}
+
+{% block content %}
+
+    <div class="well">
+        <h1>
+            {% if todos|length > 1 %}
+                {{todos|length}} todos
+            {% elif todos|length == 1 %}
+                {{todos|length}} todo
+            {% else %}
+                todo list empty
+            {% endif %}
+        </h1>
+        
+        <a href="/todos/add">
+            <img src="https://cdn0.iconfinder.com/data/icons/social-messaging-ui-color-shapes/128/add-circle-green-512.png" 
+                alt="Add Todo"
+                class="icon-add">
+        </a>
+        
+
+        <a href="{% url 'todo_sort' sort_id=3 %}">
+            <button class="btn btn-primary">By title</button>
+        </a>
+
+        <a href="{% url 'todo_sort' sort_id=2 %}">
+            <button class="btn btn-primary">By updated time</button>
+        </a>
+
+        <a href="{% url 'todo_sort' sort_id=1 %}">
+            <button class="btn btn-primary">By created time</button>
+        </a>
+        {% for todo in todos %}
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="{% url 'todo_delete' todo_id=todo.id %}" class="pull-right">
+                            <img src="https://cdn2.iconfinder.com/data/icons/e-business-helper/240/627249-delete3-512.png" 
+                                alt="delete"
+                                class="icon">
+                    </a>
+
+                    <a href="{% url 'todo_update' todo_id=todo.id %}" class="pull-right">
+                            <img src="https://cdn1.iconfinder.com/data/icons/documents-6/512/reload_edition-512.png" 
+                                alt="edit"
+                                class="icon">
+                    </a>
+
+                    {% if todo.completed == False %}
+                        <h2><a href="{% url 'todo_complete' todo_id=todo.id %}">{{todo.title}}</a></h2>
+                    {% else %}
+                        <h2 class="todo-completed">  {{todo.title}} </h2>
+                    {% endif %}
+                    <a href="{% url 'todo_detail' todo_id=todo.id %}"><h3>View More</h3></a>
+                    
+                    <h3 class="pull-right">Created at: {{todo.created_at}}</h3>
+                    <h3 class="pull-left">Updated at: {{todo.updated_at}}</h3>     
+                    
+                       
+                </div>
+            </div>
+        {% endfor %}
+    
+    </div>
+{% endblock content %}

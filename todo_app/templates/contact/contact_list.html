@@ -1,0 +1,50 @@
+{% extends "../base.html" %}
+
+{% block content %}
+
+    <div class="well">
+        <h1>
+            {% if contacts|length > 1 %}
+                {{contacts|length}} contacts
+            {% elif contacts|length == 1 %}
+                {{contacts|length}} contact
+            {% else %}
+                contact list empty
+            {% endif %}
+        </h1>
+        <a href="/contacts/add">
+            <img src="https://cdn0.iconfinder.com/data/icons/social-messaging-ui-color-shapes/128/add-circle-green-512.png" 
+                alt="Add Contact"
+                class="icon-add">
+        </a>
+
+        <a href="{% url 'contact_sort' sort_id=3 %}">
+                <button class="btn btn-primary">By name</button>
+        </a>
+
+        <a href="{% url 'contact_sort' sort_id=2 %}">
+                <button class="btn btn-primary">By phone number</button>
+        </a>
+
+        <a href="{% url 'contact_sort' sort_id=1 %}">
+            <button class="btn btn-primary">By created time</button>
+        </a>
+
+        {% for contact in contacts %}
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="{% url 'contact_delete' contact_id=contact.id %}" class="pull-right">
+                            <img src="https://cdn2.iconfinder.com/data/icons/e-business-helper/240/627249-delete3-512.png" 
+                                alt="delete"
+                                class="icon">
+                    </a>
+                    <h2><a href="{% url 'contact_detail' contact_id=contact.id %}">{{contact.name}}</a></h2>
+                    <h3>{{contact.phone_number}}</h3>        
+                    <h3 class="pull-right">Created at: {{contact.created_at}}</h3>        
+                </div>
+            </div>
+        {% endfor %}
+    
+
+    </div>
+{% endblock content %}
