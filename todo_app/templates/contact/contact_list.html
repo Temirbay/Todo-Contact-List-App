@@ -18,12 +18,16 @@
                 class="icon-add">
         </a>
 
-        <a href="{% url 'contact_sort' sort_id=3 %}">
+        <a href="{% url 'contact_sort' sort_id=4 %}">
                 <button class="btn btn-primary">By name</button>
         </a>
 
-        <a href="{% url 'contact_sort' sort_id=2 %}">
+        <a href="{% url 'contact_sort' sort_id=3 %}">
                 <button class="btn btn-primary">By phone number</button>
+        </a>
+
+        <a href="{% url 'contact_sort' sort_id=2 %}">
+            <button class="btn btn-primary">By updated time</button>
         </a>
 
         <a href="{% url 'contact_sort' sort_id=1 %}">
@@ -38,9 +42,15 @@
                                 alt="delete"
                                 class="icon">
                     </a>
+                    <a href="{% url 'contact_update' contact_id=contact.id %}" class="pull-right">
+                            <img src="https://cdn1.iconfinder.com/data/icons/documents-6/512/reload_edition-512.png" 
+                                alt="edit"
+                                class="icon">
+                    </a>
                     <h2><a href="{% url 'contact_detail' contact_id=contact.id %}">{{contact.name}}</a></h2>
                     <h3>{{contact.phone_number}}</h3>        
-                    <h3 class="pull-right">Created at: {{contact.created_at}}</h3>        
+                    <h3 class="pull-right">Created at: {{contact.created_at}}</h3>   
+                    <h3 class="pull-left">Updated at: {{contact.updated_at}}</h3>        
                 </div>
             </div>
         {% endfor %}

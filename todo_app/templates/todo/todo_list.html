@@ -19,6 +19,9 @@
                 class="icon-add">
         </a>
         
+        <a href="{% url 'todo_sort' sort_id=4 %}">
+            <button class="btn btn-primary">By priority</button>
+        </a>
 
         <a href="{% url 'todo_sort' sort_id=3 %}">
             <button class="btn btn-primary">By title</button>
@@ -53,6 +56,7 @@
                     {% endif %}
                     <a href="{% url 'todo_detail' todo_id=todo.id %}"><h3>View More</h3></a>
                     
+                    <h2>Priority:<b> {{todo.priority}}</b> </h2>
                     <h3 class="pull-right">Created at: {{todo.created_at}}</h3>
                     <h3 class="pull-left">Updated at: {{todo.updated_at}}</h3>     
                     

@@ -18,4 +18,5 @@ urlpatterns = [
     path('contacts/add', views.contact_add, name="contact_add"),
     path('contacts/delete/<int:contact_id>', views.contact_delete, name="contact_delete"),
     path('contacts/sort/<int:sort_id>', views.contact_sort, name="contact_sort"),
+    path('contact/<int:contact_id>', views.contact_update, name="contact_update"),
 ]

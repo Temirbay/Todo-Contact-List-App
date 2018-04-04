@@ -1,0 +1,22 @@
+{% extends "../base.html" %}
+
+{% block content %}
+
+    <form action="{% url 'contact_update' contact_id=contact.id %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" class="form-control" value="{{contact.name}}"/>
+        </div>
+
+        <div class="form-group">
+            <label for="phone_number">Name</label>
+            <input type="text" name="phone_number" id="phone_number" class="form-control" 
+                value="{{contact.phone_number}}"/>
+        </div>
+
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+
+
+{% endblock content %}

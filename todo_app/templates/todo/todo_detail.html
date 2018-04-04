@@ -10,7 +10,7 @@
                 {% if todo.completed == True %}
                     <h4> <i> Completed </i></h4>
                 {% endif %}
-
+                <h2>Priority: {{todo.priority}} </h2>
                 <h3 class="pull-right">Created at: {{todo.created_at}}</h3>
                 <h3 class="pull-left">Updated at: {{todo.updated_at}}</h3> 
 

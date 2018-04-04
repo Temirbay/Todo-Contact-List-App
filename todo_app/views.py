@@ -16,7 +16,8 @@ def todo_detail (request, todo_id):
 def todo_add (request):
     if (request.method == 'POST'):
         title = request.POST['title']
-        todo = Todo (title=title)
+        priority = request.POST['priority']
+        todo = Todo (title=title, priority=priority)
         todo.save()
         return redirect('/todos')
     else:
@@ -37,6 +38,7 @@ def todo_update (request, todo_id):
     todo = Todo.objects.get (pk=todo_id)
     if (request.method == 'POST'):
         todo.title = request.POST['title']
+        todo.priority = request.POST['priority']
         todo.save()
         return redirect('/todos')
     else:
@@ -47,8 +49,10 @@ def todo_sort (request, sort_id):
         todos = Todo.objects.all().order_by('-created_at')
     elif sort_id == 2:
         todos = Todo.objects.all().order_by('-updated_at')
-    if sort_id == 3:
+    elif sort_id == 3:
         todos = Todo.objects.all().order_by('title')
+    elif sort_id == 4:
+        todos = Todo.objects.all().order_by('-priority')
     return render (request, 'todo/todo_list.html', {"todos": todos, "active_menu": "todo"}) 
     
 
@@ -78,8 +82,21 @@ def contact_delete (request, contact_id):
 def contact_sort (request, sort_id):
     if sort_id == 1:
         contacts = Contact.objects.all().order_by('-created_at')
-    elif sort_id == 2:
-        contacts = Contact.objects.all().order_by('phone_number')
+    if sort_id == 2:
+        contacts = Contact.objects.all().order_by('-updated_at')
     elif sort_id == 3:
+        contacts = Contact.objects.all().order_by('phone_number')
+    elif sort_id == 4:
         contacts = Contact.objects.all().order_by('name')
     return render (request, 'contact/contact_list.html', {"contacts": contacts, "active_menu": "contact"}) 
+
+
+def contact_update (request, contact_id):
+    contact = Contact.objects.get (pk=contact_id)
+    if (request.method == 'POST'):
+        contact.name = request.POST['name']
+        contact.phone_number = request.POST['phone_number']
+        contact.save()
+        return redirect('/contacts')
+    else:
+        return render(request, "contact/contact_update.html", {"active_menu": "contact", "contact": contact})
